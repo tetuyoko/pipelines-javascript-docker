@@ -42,4 +42,5 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+          ${{ parameters.imagetag }}
 
