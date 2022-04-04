@@ -2,6 +2,11 @@
 # Build and push an image to Azure Container Registry
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
+parameters:
+- name: imagetag
+  type: string
+  default: 'default'
+
 trigger:
 - master
 
@@ -11,11 +16,13 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '95d0e38a-83fe-4c38-9b4f-a8cd3bfb0ded'
-  imageRepository: 'pipelinesjavascriptdocker'
+  imageRepository: 'devops-js-sample'
   containerRegistry: 'lostacrdev01.azurecr.io'
+  DOCKER_BUILDKIT: 1
   dockerfilePath: '$(Build.SourcesDirectory)/app/Dockerfile'
-  tag: '$(Build.BuildId)'
-
+  tags: 
+    - '$(Build.BuildId)'
+    - '${{ parameters.tag }}'
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
@@ -36,4 +43,4 @@ stages:
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
-          $(tag)
+          $(tags)
