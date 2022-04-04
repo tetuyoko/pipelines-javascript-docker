@@ -17,6 +17,7 @@ variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '95d0e38a-83fe-4c38-9b4f-a8cd3bfb0ded'
   imageRepository: 'devops-js-sample'
+  registry_name: 'lostacrdev01'
   containerRegistry: 'lostacrdev01.azurecr.io'
   DOCKER_BUILDKIT: 1
   dockerfilePath: '$(Build.SourcesDirectory)/app/Dockerfile'
@@ -43,4 +44,13 @@ stages:
         tags: |
           $(tag)
           ${{ parameters.imagetag }}
-
+    - task: AzureCLI@2
+      displayName: Write enabled false
+      inputs:
+        azureSubscription: "212fb4e4-b973-47d8-9413-92aaf88d6fdd"
+        scriptType: ps
+        scriptLocation: inlineScript
+        inlineScript: |
+          az acr repository update \
+            --name $(registry_name) --image $(imageRepository):${{ parameters.imagetag }} \
+            --write-enabled false
