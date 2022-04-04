@@ -47,7 +47,7 @@ stages:
     - task: AzureCLI@2
       displayName: Write enabled false
       inputs:
-        azureSubscription: "ProjectLOST"
+        azureSubscription: "ProjectLOST(212fb4e4-b973-47d8-9413-92aaf88d6fdd)"
         scriptType: ps
         scriptLocation: inlineScript
         inlineScript: |
