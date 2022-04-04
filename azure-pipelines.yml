@@ -42,4 +42,4 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-          ${{ parameters.tag }}
+
