@@ -41,5 +41,5 @@ stages:
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
-          - $(tag)
-          - '${{ parameters.tag }}'
+          $(tag)
+          ${{ parameters.tag }}
